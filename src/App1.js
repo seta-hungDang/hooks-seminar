@@ -7,7 +7,22 @@ class App extends React.Component {
     this.state = {
       value: "",
       isSubmitted: false,
+      status: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({ status: "Mount" });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value) {
+      this.setState({ status: "Update input" });
+    }
+
+    if (prevState.isSubmitted !== this.state.isSubmitted) {
+      this.setState({ status: "Update submit" });
+    }
   }
 
   handleChange = (event) => {
@@ -40,6 +55,8 @@ class App extends React.Component {
         <div className={this.state.isSubmitted ? "submitted" : "output"}>
           {this.state.value}
         </div>
+
+        <div className="status">{this.state.status}</div>
       </div>
     );
   }
